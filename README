@@ -1,0 +1,62 @@
+node_memo - Asynchronous function memoization
+---------
+
+You do not need to understand this introduction to use memo:
+
+The only way to memoize asynchronous function calls in node.js is to use an event emitter.
+Problem: While yourFunc('uniqueKey', callback) is computing, the next yourFunc call with the same key doesn't know anything about the state of the other computation. But on the other hand, computing the value for the same key in parallel several times is not acceptable.
+Solution: Use implicit callbacks that listen to key events - all inside a simple memo wrapper.
+
+
+Installation
+------------
+
+npm install memo
+
+
+How to use
+----------
+
+var memo = require('memo'),
+	asyncMemo = memo(
+		function async (key, callback) {
+
+			// Compute ...
+
+			callback(null, value);
+		}, {
+			// All optional:
+
+			context: null, // "this" in async
+			hashFunc: function (key) {
+
+				return (''+key).toLowerCase()
+			},
+			data: {
+				// Cache data for initialization
+			}
+		}
+	)
+
+asyncMemo('uniqueKey', function(e, value){
+
+	// ...
+})
+
+
+Dependencies
+------------
+
+- node.js >= 0.2.5
+- npm
+	OR step >= 0.0.3 (just for test)
+
+The following dependencies for contributors are not resolved by npm:
+- coffee-script >= 1.0.0
+
+
+While or at least after writing code fire
+
+./watch
+
+in your bash to make coffee script compile the latest version into the lib directory

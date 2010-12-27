@@ -1,0 +1,7 @@
+#!/bin/sh
+
+dir=$(dirname $(readlink -f $0))
+
+coffee -b -wco ${dir}/lib ${dir}/src &
+
+exit

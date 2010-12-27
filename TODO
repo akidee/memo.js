@@ -1,0 +1,12 @@
+Cache invalidation management
+	by time
+	by (global) size
+	needs performant sort by time
+
+Add ignore flag for separate calls (?)
+
+Backend interface to plug in the kind of storage you need
+
+Add "memoErrors" option
+
+Full tests
