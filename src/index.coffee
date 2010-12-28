@@ -25,7 +25,7 @@ exports = module.exports = (func, options = {}) ->
 		if hash of data
 
 			if value != COMPUTING
-
+			
 				_cb.apply null, value
 				return on
 
@@ -42,7 +42,7 @@ exports = module.exports = (func, options = {}) ->
 			__cb = ->
 
 				data[hash] = arguments
-					
+
 				ee.emit.apply ee, [hash].concat(slice.call arguments)
 				ee.removeAllListeners hash
 

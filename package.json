@@ -2,7 +2,7 @@
   "name"          : "memo",
   "description"   : "Asynchronous function memoization",
   "url"           : "http://github.com/akidee/node_memo",
-  "keywords"      : ["javascript", "asynchronous", "async", "function", "memoization"],
+  "keywords"      : ["asynchronous", "async", "function", "memoization", "callback"],
   "author"        : "Andreas Kalsch",
   "dependencies"  : {
     "step": ">=0.0.3"

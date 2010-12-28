@@ -2,6 +2,8 @@
 
 dir=$(dirname $(readlink -f $0))
 
+rm -rf ${dir}/lib
+
 coffee -b -wco ${dir}/lib ${dir}/src &
 
 exit

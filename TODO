@@ -10,3 +10,5 @@ Backend interface to plug in the kind of storage you need
 Add "memoErrors" option
 
 Full tests
+
+Should normal return value memoized as well?
