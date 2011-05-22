@@ -3,12 +3,10 @@ Cache invalidation management
 	by (global) size
 	needs performant sort by time
 
-Add ignore flag for separate calls (?)
+Add ignore flag for separate calls (useful?)
 
 Backend interface to plug in the kind of storage you need
 
-Add "memoErrors" option
+Add "memoErrors" option (?)
 
 Full tests
-
-Should normal return value memoized as well?

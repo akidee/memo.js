@@ -1,16 +1,14 @@
-memo = require '../../'
-a = require 'assert'
-step = require 'step'
-fs = require 'fs'
+memo = require('../')
+a = require('assert')
+step = require('step')
+fs = require('fs')
 
 
 
 
 TIME_TOLERANCE = 25 # ms
+
 WAIT = 500
-
-
-
 
 data = {
 	0: [new Error]
