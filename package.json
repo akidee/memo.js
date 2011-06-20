@@ -1,15 +1,15 @@
 {
   "name"          : "memo",
-  "description"   : "Asynchronous function memoization",
+  "description"   : "Sophisticated function memoization",
   "url"           : "http://github.com/akidee/node_memo",
-  "keywords"      : ["asynchronous", "async", "function", "memoization", "callback"],
+  "keywords"      : ["asynchronous", "async", "function", "memoization", "backend"],
   "author"        : "Andreas Kalsch",
   "dependencies"  : {
-    "step": ">=0.0.3"
+    "stepc": ">=0.0.3"
   },
   "lib"           : ".",
   "main"          : "index.js",
-  "version"       : "0.1.0a",
+  "version"       : "0.2.0",
   "engines":      {
     "node":       ">=0.2.5"
   }

@@ -1,6 +1,6 @@
 memo = require('../')
 a = require('assert')
-step = require('step')
+step = require('stepc')
 fs = require('fs')
 le = (e) ->
 	if e?.name == 'AssertionError'

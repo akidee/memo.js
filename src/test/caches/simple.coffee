@@ -1,7 +1,7 @@
 Cache = require('../../cache')
 SimpleCache = require('../../caches/simple')
 a = require('assert')
-step = require('step')
+step = require('stepc')
 le = (e) ->
 	if e?.name == 'AssertionError'
 		console.log(e)
@@ -26,6 +26,7 @@ a.deepEqual(
 		maxLength: 0
 		maxAge: 0
 		intervals: []
+		debug: no
 	}
 )
 
