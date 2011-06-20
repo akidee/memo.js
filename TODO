@@ -1,12 +1,10 @@
-Cache invalidation management
+SimpleCache
+	side effects possibe?
+
+Cache invalidation
 	by time
-	by (global) size
-	needs performant sort by time
+		bigger interval, if maxAge is bigger
 
-Add ignore flag for separate calls (useful?)
+Ignore flag - instead of commenting out memo call
 
-Backend interface to plug in the kind of storage you need
-
-Add "memoErrors" option (?)
-
-Full tests
+Do not cache errors (option)

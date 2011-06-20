@@ -1,10 +1,10 @@
+Cache = require('./cache')
 EventEmitter = require('events').EventEmitter
+NOT_EXISTING = Cache.NOT_EXISTING
 slice = Array.prototype.slice
 
 
 
-
-COMPUTING = {}
 
 _defaultHashFunc = -> JSON.stringify(arguments)
 
@@ -13,47 +13,87 @@ _defaultHashFunc = -> JSON.stringify(arguments)
 	
 exports = module.exports = (func, options = {}) ->
 
+	# context of func call
 	context = options.context || null
-	hashFunc = options.hashFunc || _defaultHashFunc
-	data = options.data || {}
-
 	
+	hashFunc = options.hashFunc || _defaultHashFunc
+	cacheModuleId = options.cache || './caches/simple'
+
+	# func is synchronous
+	isSync = options.isSync || no
+
+	# To pass remaining options to the cache instantiation
+	delete options.context
+	delete options.hashFunc
+	delete options.cache
+	delete options.isSync
+
+
 	ee = new EventEmitter
+
+	# More performant than using costly ee.listeners[hash].length
+	computing = {}
+	
+	cache = new (require(cacheModuleId))(options)
+	
 
 	memoized = (args..., __) ->
 		
 		hash = hashFunc.apply(context, args)
 
-		value = data[hash]
-		if hash of data
-
-			if value != COMPUTING
-			
-				__.apply(null, value)
-				return on
-
-			else
-
-				ee.on(hash, __)
-				return no
-
+		if computing[hash]
+			ee.once(hash, __)
 		else
+			cache.get(hash, (e, data) ->
 
-			data[hash] = COMPUTING
-			ee.on(hash, __)
+				if e
+					return __(e)
 
-			__cb = ->
 
-				data[hash] = arguments
+				if data != NOT_EXISTING
+					__.apply(null, data)
+				else
+					computing[hash] = on
+					ee.once(hash, __)
 
-				ee.emit.apply(ee, [hash].concat(slice.call(arguments)))
-				ee.removeAllListeners(hash)
+					callback = ->
 
-			func.apply(context, args.concat([__cb]))
-			return no
+						_args = arguments
 
-	memoized.data = data
+						cache.set(hash, _args, (e) ->
+
+							_args = if !e
+								[ hash ].concat(slice.call(_args))
+							else
+								[ hash ].concat(e)
+							
+							delete computing[hash]
+							ee.emit.apply(ee, _args)
+						)
+
+					if !isSync
+						func.apply(context, args.concat([ callback ]))
+					else
+						e = null
+						try
+							result = func.apply(context, args)
+						catch f
+							e = f
+						callback(e, result)
+
+			)
+
+	memoized.cache = cache
+
+	functions.push(memoized)
 
 	return memoized
 
 exports.hashFunc = _defaultHashFunc
+
+functions = exports.functions = []
+
+exports.stop = ->
+
+	for fun in functions
+		fun.cache.destruct?()
