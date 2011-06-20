@@ -1,12 +1,12 @@
-node_memo - Asynchronous function memoization
+node_memo v0.2.0 - Sophisticated function memoization (node.js)
 ---------
 
-You do not need to understand this introduction to use memo:
+Features
 
-The only way to memoize asynchronous function calls in node.js is to use an event emitter.
-Problem: While yourFunc('uniqueKey', callback) is computing, the next yourFunc call with the same key doesn't know anything about the state of the other computation. But on the other hand, computing the value for the same key in parallel several times is not acceptable.
-Solution: Use implicit callbacks that listen to key events - all inside a simple memo wrapper.
-
+- Simple API
+- Supports async and sync functions
+- Guarantees max 1 execution for a unique function call. When several identic calls are made at once, only the first one is executed, while the other ones are pushed to an event emitter. Other memoizers, that I know, do not consider this case.
+- Backend interface to plug in the storage engine of your choice
 
 Installation
 ------------
@@ -17,43 +17,43 @@ npm install memo
 How to use
 ----------
 
-var memo = require('memo'),
-	asyncMemo = memo(
-		function async (key, callback) {
+var memo = require('memo')
+var asyncMemo = memo(
+	myFunction,
+	options
+)
 
-			// Compute ...
+myFunction is any sync or async function.
+options is an object that can have the following keys:
 
-			callback(null, value);
-		}, {
-			// All optional:
+	- 'context': myFunction's context (this), default: null
+	- 'hashFunc': Returns the cache key, must be a string, default: JSON.stringify
+	- 'cache': module id of the backend storage. Default: './caches/simple'
+	- 'isSync': Must be true, if myFunction is sync, default: false - Anyway, memo() always returns an async function
 
-			context: null, // "this" in async
-			hashFunc: function (key) {
+Further options are passed to the cache constructor. The following options can be defined for the only backend storage, that is currently available: an in-memory cache with optional cache invalidation ('./caches/simple'):
 
-				return (''+key).toLowerCase()
-			},
-			data: {
-				// Cache data for initialization
-			}
-		}
-	)
+	- 'maxLength': Maximum number of cache objects. When the cache is full, the least frequently accessed objects are removed. Default: 0 (no limit)
+	- 'maxAge': Maximum age (in seconds) of a cached object. After this time, the object is removed from the cache
 
-asyncMemo('uniqueKey', function(e, value){
-
-	// ...
-})
+asyncMemo is an async function that references the wrapped myFunction, and it can be called in the same way as myFunction is called, besides the fact that it is always async. (This is necessary, because the backend storage includes async calls.)
 
 
 Dependencies
 ------------
 
 - node.js >= 0.2.5
-- npm
-	OR step >= 0.0.3 (just for test)
+- stepc >= 0.0.3
 
-The following dependencies for contributors are not resolved by npm:
-- coffee-script >= 1.0.0
 
+Contribute!
+-----------
+
+I am glad to receive your contributions to support more backends, for example Redis and other scalable key/value stores. See /src/caches to see the structure of a cache. Next to all tests, run /lib/test/caches/simple_stress.js , too.
+
+The code is living in /src (CoffeeScript). If you want to contribute, do:
+
+npm install coffee-script
 
 While or at least after writing code fire
 
