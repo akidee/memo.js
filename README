@@ -39,13 +39,6 @@ Further options are passed to the cache constructor. The following options can b
 asyncMemo is an async function that references the wrapped myFunction, and it can be called in the same way as myFunction is called, besides the fact that it is always async. (This is necessary, because the backend storage includes async calls.)
 
 
-Dependencies
-------------
-
-- node.js >= 0.2.5
-- stepc >= 0.0.3
-
-
 Contribute!
 -----------
 
@@ -53,10 +46,11 @@ I am glad to receive your contributions to support more backends, for example Re
 
 The code is living in /src (CoffeeScript). If you want to contribute, do:
 
-npm install coffee-script
+npm install memo --dev
 
+This installs CoffeeScript.
 While or at least after writing code fire
 
 ./watch
 
-in your bash to make coffee script compile the latest version into the lib directory
+in your bash to make CoffeeScript compile the latest version into the lib directory
