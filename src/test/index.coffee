@@ -6,7 +6,7 @@ le = (e) ->
 	if e?.name == 'AssertionError'
 		console.log(e)
 		console.log(e.stack)
-		process.exit()
+		process.exit(1)
 
 
 

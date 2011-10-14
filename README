@@ -5,7 +5,7 @@ Features
 
 - Simple API
 - Supports async and sync functions
-- Guarantees max 1 execution for a unique function call. When several identic calls are made at once, only the first one is executed, while the other ones are pushed to an event emitter. Other memoizers, that I know, do not consider this case.
+- Deals with the "thundering herd problem": Guarantees max 1 execution for a unique function call. When several identic calls are made at once, only the first one is executed, while the other ones are pushed to an event emitter.
 - Backend interface to plug in the storage engine of your choice
 
 Installation
