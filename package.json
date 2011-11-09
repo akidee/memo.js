@@ -1,18 +1,30 @@
 {
 	"name": "memo",
-	"version": "0.2.0",
+	"version": "0.2.0-1",
 	"description": "Sophisticated function memoization",
-	"keywords": ["asynchronous", "async", "function", "call", "memoization", "backend", "storage", "agile"],
 	"homepage": "https://github.com/akidee/node_memo",
-	"author": "Andreas Kalsch (http://akidee.de/)",
-	"main": "./",
+	"author": {
+		"name": "Andreas Kalsch",
+		"email": "mail@akidee.de",
+		"url": "http://akidee.de/"
+	},
+	"engine": {
+		"node": ">=0.4.0"
+	},
 	"dependencies": {
 		"stepc": ">=0.0.3"
 	},
 	"devDependencies": {
 		"coffee-script": ">=1.1.0"
 	},
-	"engines":      {
-		"node": ">=0.2.5"
-	}
+	"keywords": [
+		"asynchronous",
+		"async",
+		"function",
+		"call",
+		"memoization",
+		"backend",
+		"storage",
+		"agile"
+	]
 }

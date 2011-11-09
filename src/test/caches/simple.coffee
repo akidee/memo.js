@@ -114,6 +114,9 @@ step.async(
 
 	(e) ->
 
+		le(e)
+
+
 		a.strictEqual(
 			e?
 			no
@@ -139,9 +142,12 @@ step.async(
 
 			# invalidation by time (RAW TEST)
 
-		setTimeout(this, 2000)
+		setTimeout(@, 3000)
 
-	->
+	(e) ->
+
+		le(e)
+
 
 		a.strictEqual(
 			'b' of cache.data
@@ -149,9 +155,8 @@ step.async(
 		)
 
 
-			# invalidation by access count
 
-		#group = @group()
+			# invalidation by access count
 
 		cache.set('a', 1, -> )
 		cache.set('b', 1, -> )
@@ -160,9 +165,12 @@ step.async(
 		cache.get('c', -> )
 		cache.get('d', -> )
 
-		setTimeout(this, 1000)
+		setTimeout(@, 1000)
 
 	(e) ->
+
+		le(e)
+
 
 		a.strictEqual(
 			'a' of cache.data

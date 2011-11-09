@@ -1,4 +1,4 @@
-sys = require('sys')
+util = require('util')
 Cache = require('../cache')
 NOT_EXISTING = Cache.NOT_EXISTING
 
@@ -53,7 +53,7 @@ module.exports = SimpleCache = (options) ->
 
 	@
 
-sys.inherits(SimpleCache, Cache)
+util.inherits(SimpleCache, Cache)
 
 SimpleCache::seconds = (minus = 0) ->
 
