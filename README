@@ -1,21 +1,31 @@
-node_memo v0.2.0 - Sophisticated function memoization (node.js)
----------
+                    __
+   ____  ____  ____/ /__       ____ ___  ___  ____ ___  ____
+  / __ \/ __ \/ __  / _ \     / __ `__ \/ _ \/ __ `__ \/ __ \
+ / / / / /_/ / /_/ /  __/    / / / / / /  __/ / / / / / /_/ /
+/_/ /_/\____/\__,_/\___/____/_/ /_/ /_/\___/_/ /_/ /_/\____/  v0.2.0
+                      /_____/
 
-Features
 
-- Simple API
-- Supports async and sync functions
-- Deals with the "thundering herd problem": Guarantees max 1 execution for a unique function call. When several identic calls are made at once, only the first one is executed, while the other ones are pushed to an event emitter.
-- Backend interface to plug in the storage engine of your choice
+
+
+node_memo: Sophisticated function memoization (node.js)
+
+  - Simple API
+  - Supports async and sync functions
+  - Deals with the "thundering herd problem": Guarantees max 1 execution for a unique function call. When several identic calls are made at once, only the first one is executed, while the other ones are pushed to an event emitter.
+  - Backend interface to plug in the storage engine of your choice
+
+
+
 
 Installation
-------------
 
 npm install memo
 
 
+
+
 How to use
-----------
 
 var memo = require('memo')
 var asyncMemo = memo(
@@ -26,21 +36,22 @@ var asyncMemo = memo(
 myFunction is any sync or async function.
 options is an object that can have the following keys:
 
-	- 'context': myFunction's context (this), default: null
-	- 'hashFunc': Returns the cache key, must be a string, default: JSON.stringify
-	- 'cache': module id of the backend storage. Default: './caches/simple'
-	- 'isSync': Must be true, if myFunction is sync, default: false - Anyway, memo() always returns an async function
+  - 'context': myFunction's context (this), default: null
+  - 'hashFunc': Returns the cache key, must be a string, default: JSON.stringify
+  - 'cache': module id of the backend storage. Default: './caches/simple'
+  - 'isSync': Must be true, if myFunction is sync, default: false - Anyway, memo() always returns an async function
 
 Further options are passed to the cache constructor. The following options can be defined for the only backend storage, that is currently available: an in-memory cache with optional cache invalidation ('./caches/simple'):
 
-	- 'maxLength': Maximum number of cache objects. When the cache is full, the least frequently accessed objects are removed. Default: 0 (no limit)
-	- 'maxAge': Maximum age (in seconds) of a cached object. After this time, the object is removed from the cache
+  - 'maxLength': Maximum number of cache objects. When the cache is full, the least frequently accessed objects are removed. Default: 0 (no limit)
+  - 'maxAge': Maximum age (in seconds) of a cached object. After this time, the object is removed from the cache
 
 asyncMemo is an async function that references the wrapped myFunction, and it can be called in the same way as myFunction is called, besides the fact that it is always async. (This is necessary, because the backend storage includes async calls.)
 
 
+
+
 Contribute!
------------
 
 I am glad to receive your contributions to support more backends, for example Redis and other scalable key/value stores. See /src/caches to see the structure of a cache. Next to all tests, run /lib/test/caches/simple_stress.js , too.
 
