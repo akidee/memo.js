@@ -4,9 +4,13 @@ step = require('stepc')
 fs = require('fs')
 le = (e) ->
 	if e?.name == 'AssertionError'
-		console.log(e)
-		console.log(e.stack)
-		process.exit(1)
+		__(e)
+
+
+
+
+__ = null
+module.exports = (ready) -> __ = ready
 
 
 
@@ -92,7 +96,7 @@ step.async(
 
 		le(e)
 
-
+		
 		a.strictEqual(
 			e?
 			no
@@ -141,7 +145,6 @@ step.async(
 		g = null
 
 		ready = =>
-
 			a.strictEqual(
 				f
 				g
@@ -161,7 +164,7 @@ step.async(
 			if --i == 0
 				ready()
 		)
-
+		
 		async(0, (e, r) =>
 
 			a.strictEqual(
@@ -174,25 +177,25 @@ step.async(
 			if --i == 0
 				ready()
 		)
-
+		
 	(e) ->
 
 		le(e)
 
 
 			 # behavior: no error
-
+		
 		async(5, this)
 
 	(e, r) ->
-
+		
 		le(e)
 
 		a.strictEqual(
 			e instanceof Error
 			no
 		)
-
+		
 		a.strictEqual(
 			r
 			1
@@ -206,6 +209,6 @@ step.async(
 		le(e)
 		
 
-		console.log('Passed')
-		process.exit(0)
+		console.log('Passed '+__filename)
+		__()
 )

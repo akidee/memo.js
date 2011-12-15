@@ -4,9 +4,13 @@ a = require('assert')
 step = require('stepc')
 le = (e) ->
 	if e?.name == 'AssertionError'
-		console.log(e)
-		console.log(e.stack)
-		process.exit()
+		__(e)
+
+
+
+
+__ = null
+module.exports = (ready) -> __ = ready
 
 
 
@@ -199,6 +203,6 @@ step.async(
 		le(e)
 		
 
-		console.log('Passed')
-		process.exit()
+		console.log('Passed '+__filename)
+		__()
 )

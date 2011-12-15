@@ -20,4 +20,4 @@ a.deepEqual(
 	data
 )
 
-console.log('Passed')
+console.log('Passed '+__filename)

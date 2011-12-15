@@ -8,3 +8,6 @@ Cache invalidation
 Ignore flag - instead of commenting out memo call
 
 Do not cache errors (option)
+
+test framework nutzen?
+SimpleCache auf dem client nutzbar machen, spätestens dann test frmwrk nutzen
