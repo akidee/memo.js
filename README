@@ -2,7 +2,7 @@
    ____  ____  ____/ /__       ____ ___  ___  ____ ___  ____
   / __ \/ __ \/ __  / _ \     / __ `__ \/ _ \/ __ `__ \/ __ \
  / / / / /_/ / /_/ /  __/    / / / / / /  __/ / / / / / /_/ /
-/_/ /_/\____/\__,_/\___/____/_/ /_/ /_/\___/_/ /_/ /_/\____/  v0.2.0
+/_/ /_/\____/\__,_/\___/____/_/ /_/ /_/\___/_/ /_/ /_/\____/  v0.2.1
                       /_____/
 
 
@@ -48,6 +48,8 @@ Further options are passed to the cache constructor. The following options can b
 
 asyncMemo is an async function that references the wrapped myFunction, and it can be called in the same way as myFunction is called, besides the fact that it is always async. (This is necessary, because the backend storage includes async calls.)
 
+It is highly recommended to use node.js v0.6.7+ to prevent hash collision!
+
 
 
 
@@ -55,7 +57,7 @@ Contribute!
 
 I am glad to receive your contributions to support more backends, for example Redis and other scalable key/value stores. See /src/caches to see the structure of a cache. Next to all tests, run /lib/test/caches/simple_stress.js , too.
 
-The code is living in /src (CoffeeScript). If you want to contribute, do:
+The code is in /src (CoffeeScript). If you want to contribute, do:
 
 npm install memo --dev
 

@@ -1,6 +1,6 @@
 {
 	"name": "memo",
-	"version": "0.2.0-1",
+	"version": "0.2.1",
 	"description": "Sophisticated function memoization",
 	"homepage": "https://github.com/akidee/node_memo",
 	"author": {
@@ -24,7 +24,6 @@
 		"call",
 		"memoization",
 		"backend",
-		"storage",
-		"agile"
+		"storage"
 	]
 }

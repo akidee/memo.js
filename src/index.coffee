@@ -1,7 +1,8 @@
 Cache = require('./cache')
 EventEmitter = require('events').EventEmitter
 NOT_EXISTING = Cache.NOT_EXISTING
-slice = Array.prototype.slice
+slice = Array::slice
+hasOwnProperty = Object::hasOwnProperty
 
 
 
@@ -31,7 +32,7 @@ exports = module.exports = (func, options = {}) ->
 
 	ee = new EventEmitter
 
-	# More performant than using costly ee.listeners[hash].length
+	# More performant than using costly ee.listeners[hash].length (must take care about __proto__)
 	computing = {}
 	
 	cache = new (require(cacheModuleId))(options)
@@ -41,7 +42,10 @@ exports = module.exports = (func, options = {}) ->
 		
 		hash = hashFunc.apply(context, args)
 
-		if computing[hash]
+		if hash.indexOf('__proto__') == 0
+			hash = hash + '%'
+			
+		if hasOwnProperty.call(computing, hash)
 			ee.once(hash, __)
 		else
 			cache.get(hash, (e, data) ->

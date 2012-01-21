@@ -1,6 +1,7 @@
 util = require('util')
 Cache = require('../cache')
 NOT_EXISTING = Cache.NOT_EXISTING
+hasOwnProperty = Object::hasOwnProperty
 
 
 
@@ -69,7 +70,7 @@ SimpleCache::timeslot = (minus = 0) ->
 
 SimpleCache::get = (key, __) ->
 
-	if key of @data
+	if hasOwnProperty.call(@data, key)
 		data = @data[key]
 		data[1]++
 		return __(null, data[0])
@@ -111,7 +112,7 @@ SimpleCache::reduce = ->
 		accesses.push(v[1])
 	le = accesses.sort((a, b) -> b - a)[reducedLength]
 
-	for k, v of @data
+	for own k, v of @data
 		if v[1] <= le
 			@del(k)
 
