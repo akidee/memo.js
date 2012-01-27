@@ -1,5 +1,6 @@
 Cache = require('./cache')
 EventEmitter = require('events').EventEmitter
+Hash = require('hash')
 NOT_EXISTING = Cache.NOT_EXISTING
 slice = Array::slice
 hasOwnProperty = Object::hasOwnProperty
@@ -33,7 +34,7 @@ exports = module.exports = (func, options = {}) ->
 	ee = new EventEmitter
 
 	# More performant than using costly ee.listeners[hash].length (must take care about __proto__)
-	computing = {}
+	computing = new Hash
 	
 	cache = new (require(cacheModuleId))(options)
 	
@@ -42,10 +43,7 @@ exports = module.exports = (func, options = {}) ->
 		
 		hash = hashFunc.apply(context, args)
 
-		if hash.indexOf('__proto__') == 0
-			hash = hash + '%'
-			
-		if hasOwnProperty.call(computing, hash)
+		if computing.has(hash)
 			ee.once(hash, __)
 		else
 			cache.get(hash, (e, data) ->
@@ -57,7 +55,7 @@ exports = module.exports = (func, options = {}) ->
 				if data != NOT_EXISTING
 					__.apply(null, data)
 				else
-					computing[hash] = on
+					computing.set(hash, on)
 					ee.once(hash, __)
 
 					callback = ->
@@ -71,7 +69,7 @@ exports = module.exports = (func, options = {}) ->
 							else
 								[ hash ].concat(e)
 							
-							delete computing[hash]
+							computing.del(hash)
 							ee.emit.apply(ee, _args)
 						)
 

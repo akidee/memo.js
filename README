@@ -1,14 +1,14 @@
-                    __
-   ____  ____  ____/ /__       ____ ___  ___  ____ ___  ____
-  / __ \/ __ \/ __  / _ \     / __ `__ \/ _ \/ __ `__ \/ __ \
- / / / / /_/ / /_/ /  __/    / / / / / /  __/ / / / / / /_/ /
-/_/ /_/\____/\__,_/\___/____/_/ /_/ /_/\___/_/ /_/ /_/\____/  v0.2.1
-                      /_____/
+                                       _
+   ____ ___  ___  ____ ___  ____      (_)____
+  / __ `__ \/ _ \/ __ `__ \/ __ \    / / ___/
+ / / / / / /  __/ / / / / / /_/ /   / (__  )
+/_/ /_/ /_/\___/_/ /_/ /_/\____(_)_/ /____/  v0.2.2
+                                /___/
 
 
 
 
-node_memo: Sophisticated function memoization (node.js)
+memo.js: Sophisticated function memoization (node.js)
 
   - Simple API
   - Supports async and sync functions
@@ -48,7 +48,14 @@ Further options are passed to the cache constructor. The following options can b
 
 asyncMemo is an async function that references the wrapped myFunction, and it can be called in the same way as myFunction is called, besides the fact that it is always async. (This is necessary, because the backend storage includes async calls.)
 
-It is highly recommended to use node.js v0.6.7+ to prevent hash collision!
+It is highly recommended to use node.js v0.6.7+ to prevent hash collision attacks!
+
+
+
+
+Tested in
+
+  node.js 0.4-latest
 
 
 

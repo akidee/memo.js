@@ -1,8 +1,8 @@
 {
 	"name": "memo",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "Sophisticated function memoization",
-	"homepage": "https://github.com/akidee/node_memo",
+	"homepage": "https://github.com/akidee/memo.js",
 	"author": {
 		"name": "Andreas Kalsch",
 		"email": "mail@akidee.de",
@@ -12,7 +12,8 @@
 		"node": ">=0.4.0"
 	},
 	"dependencies": {
-		"stepc": ">=0.0.3"
+		"stepc": ">=0.0.3",
+		"hash": ">=0.2.0"
 	},
 	"devDependencies": {
 		"coffee-script": ">=1.1.0"

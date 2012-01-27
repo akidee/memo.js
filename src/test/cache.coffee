@@ -20,4 +20,4 @@ a.deepEqual(
 	data
 )
 
-console.log('Passed '+__filename)
+console.log('Passed ' + module.id)

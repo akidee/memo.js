@@ -1,4 +1,5 @@
 util = require('util')
+Hash = require('hash')
 Cache = require('../cache')
 NOT_EXISTING = Cache.NOT_EXISTING
 hasOwnProperty = Object::hasOwnProperty
@@ -10,7 +11,7 @@ module.exports = SimpleCache = (options) ->
 
 	Cache.call(@, options)
 
-	@data = @data || {}
+	@data = new Hash(@data)
 
 	@maxLength = @maxLength || 0
 
@@ -70,8 +71,8 @@ SimpleCache::timeslot = (minus = 0) ->
 
 SimpleCache::get = (key, __) ->
 
-	if hasOwnProperty.call(@data, key)
-		data = @data[key]
+	data = @data.get(key)
+	if data
 		data[1]++
 		return __(null, data[0])
 
@@ -80,14 +81,14 @@ SimpleCache::get = (key, __) ->
 
 SimpleCache::set = (key, data, __) ->
 
-	@data[key] = [ data, 1 ]
+	@data.set(key, [ data, 1 ])
 	if @maxAge
 		@timeslot().push(key)
 	return __(null)
 
 SimpleCache::del = (key) ->
 
-	delete @data[key]
+	@data.del(key)
 
 SimpleCache::destruct = ->
 
@@ -108,13 +109,17 @@ SimpleCache::reduce = ->
 	reducedLength = Math.floor(@maxLength / 2)
 
 	accesses = []
-	for k, v of @data
+	@data.forEach((v, k) ->
 		accesses.push(v[1])
+	)
 	le = accesses.sort((a, b) -> b - a)[reducedLength]
 
-	for own k, v of @data
+	_this = @
+
+	@data.forEach((v, k) ->
 		if v[1] <= le
-			@del(k)
+			_this.del(k)
+	)
 
 	if @debug
 		console.log("node_memo simple cache: Reduced to #{reducedLength} in #{Date.now() - t} ms")
@@ -123,7 +128,7 @@ SimpleCache::reduce = ->
 
 SimpleCache::length = ->
 
-	Object.keys(@data).length
+	Object.keys(@data.getData()).length
 
 SimpleCache::removeTimeslot = (slot) ->
 

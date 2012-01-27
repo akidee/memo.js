@@ -209,6 +209,6 @@ step.async(
 		le(e)
 		
 
-		console.log('Passed '+__filename)
+		console.log('Passed ' + module.id)
 		__()
 )

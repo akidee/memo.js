@@ -26,7 +26,9 @@ a.deepEqual(
 	new SimpleCache(data)
 	{
 		a: 1
-		data: {}
+		data: {
+			_data: {}
+		}
 		maxLength: 0
 		maxAge: 0
 		intervals: []
@@ -45,7 +47,7 @@ data =
 cache = new SimpleCache(data)
 
 a.strictEqual(
-	cache.data
+	cache.data.getData()
 	data.data
 )
 
@@ -88,7 +90,7 @@ step.async(
 		)
 
 		a.strictEqual(
-			cache.data.a[1]
+			cache.data.get('a')[1]
 			2
 		)
 
@@ -127,7 +129,7 @@ step.async(
 		)
 
 		a.deepEqual(
-			cache.data.b
+			cache.data.get('b')
 			[ { a: 5 }, 1 ]
 		)
 
@@ -137,7 +139,7 @@ step.async(
 		cache.del('a')
 
 		a.deepEqual(
-			'a' of cache.data
+			cache.data.has('a')
 			no
 		)
 
@@ -154,7 +156,7 @@ step.async(
 
 
 		a.strictEqual(
-			'b' of cache.data
+			cache.data.has('b')
 			no
 		)
 
@@ -177,22 +179,22 @@ step.async(
 
 
 		a.strictEqual(
-			'a' of cache.data
+			cache.data.has('a')
 			no
 		)
 
 		a.strictEqual(
-			'b' of cache.data
+			cache.data.has('b')
 			no
 		)
 
 		a.strictEqual(
-			'c' of cache.data
+			cache.data.has('c')
 			on
 		)
 
 		a.strictEqual(
-			'd' of cache.data
+			cache.datahas('d')
 			on
 		)
 
@@ -203,6 +205,6 @@ step.async(
 		le(e)
 		
 
-		console.log('Passed '+__filename)
+		console.log('Passed ' + module.id)
 		__()
 )
